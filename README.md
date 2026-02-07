@@ -48,7 +48,7 @@ npm install
 
 ### 3. Configure environment variables
 
-Copy the `.env` file and configure with your PostgreSQL credentials:
+Create an `.env` file and configure with your PostgreSQL credentials:
 
 ```env
 PORT=3000
