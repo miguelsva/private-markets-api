@@ -1,4 +1,4 @@
-# Titanbay Private Markets API
+# Private Markets API
 
 A RESTful API for managing private market funds, investors, and their investments. Built with TypeScript, Express, and PostgreSQL.
 
@@ -14,7 +14,7 @@ A RESTful API for managing private market funds, investors, and their investment
 - **Production Safety**: Environment-aware safeguards for destructive operations
 - **Connection Pooling**: Optimized PostgreSQL connection management with timeout handling
 - **Request Logging**: Development-mode request logging for debugging
-- **Graceful Shutdown**: Proper cleanup of database connections on server shutdown
+- **Graceful Shutdown**: Cleanup of database connections on server shutdown
 
 ## Tech Stack
 
@@ -123,7 +123,7 @@ Run tests in watch mode:
 npm run test:watch
 ```
 
-**Note**: Tests use a separate test database (`private_markets_test`) and will clean it before running.
+**Note**: Tests use a separate test database (`private_markets_test`).
 
 ## API Endpoints
 

@@ -52,11 +52,11 @@ Integration tests covering:
 - Constraint violations (400)
 - Database errors (500)
 
-Separate test database (`private_markets_test`) with clean state before each suite.
+Separate test database (`private_markets_test`).
 
 ## Production Features
 
-**Connection Pooling**: 20 max connections, 30s idle timeout, client leak detection
+**Connection Pooling**: 20 max connections, 30s idle timeout
 
 **Environment Safety**: Prevents destructive operations in production, validates configuration
 
