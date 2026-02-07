@@ -28,7 +28,7 @@ A RESTful API for managing private market funds, investors, and their investment
 ## Prerequisites
 
 - Node.js (v20 or higher)
-- PostgreSQL (v12 or higher)
+- PostgreSQL (v16 or higher)
 - npm
 
 ## Setup Instructions
@@ -248,7 +248,3 @@ The API includes several production-ready safety mechanisms:
 - **Connection Management**: Graceful shutdown with proper cleanup of database connections
 - **Query Logging**: Development-mode query logging for debugging (disabled in production/test)
 - **Client Timeout Monitoring**: Automatic detection and cleanup of idle database connections
-
-## License
-
-ISC

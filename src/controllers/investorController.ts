@@ -4,7 +4,7 @@ import { asyncHandler } from '../middleware/errorHandler';
 
 const investorService = new InvestorService();
 
-export const getAllInvestors = asyncHandler(async (req: Request, res: Response) => {
+export const getAllInvestors = asyncHandler(async (_req: Request, res: Response) => {
   const investors = await investorService.getAllInvestors();
   res.status(200).json(investors);
 });

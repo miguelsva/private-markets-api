@@ -79,5 +79,6 @@ export const validate = (rules: ValidationRule[]) => {
     }
 
     next();
+    return;
   };
 };

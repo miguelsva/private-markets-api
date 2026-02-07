@@ -12,14 +12,14 @@ app.use(express.urlencoded({ extended: true }));
 
 // Simple request logger for development
 if (process.env.NODE_ENV !== 'test') {
-  app.use((req, res, next) => {
+  app.use((req, _res, next) => {
     console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
     next();
   });
 }
 
 // Health check endpoint
-app.get('/health', (req, res) => {
+app.get('/health', (_req, res) => {
   res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 

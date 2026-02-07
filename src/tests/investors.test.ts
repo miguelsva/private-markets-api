@@ -1,11 +1,9 @@
 import request from 'supertest';
-import app from '../../app';
-import { pool } from '../../database/db';
-import { clearAllTables } from '../../database/safeQueries';
+import app from '../app';
+import { pool } from '../database/db';
+import { clearAllTables } from '../database/safeQueries';
 
 describe('Investor Endpoints', () => {
-  let createdInvestorId: string;
-
   beforeAll(async () => {
     // Clean up the test database
     await clearAllTables();
@@ -37,8 +35,6 @@ describe('Investor Endpoints', () => {
           created_at: expect.any(String)
         })
       );
-
-      createdInvestorId = response.body.id;
     });
 
     it('should return 400 if required fields are missing', async () => {

@@ -1,7 +1,7 @@
 import request from 'supertest';
-import app from '../../app';
-import { pool } from '../../database/db';
-import { clearAllTables } from '../../database/safeQueries';
+import app from '../app';
+import { pool } from '../database/db';
+import { clearAllTables } from '../database/safeQueries';
 
 describe('Fund Endpoints', () => {
   let createdFundId: string;
