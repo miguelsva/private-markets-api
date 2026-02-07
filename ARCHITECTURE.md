@@ -38,7 +38,7 @@ This API uses a clean, layered architecture with clear separation of concerns, d
 ## Error Handling
 
 Maps PostgreSQL errors to HTTP status codes:
-- `23505` (unique violation) → 400
+- `23505` (unique violation) → 409
 - `23503` (foreign key violation) → 400
 - `23514` (check constraint) → 400
 - `22P02` (invalid data type) → 400

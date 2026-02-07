@@ -25,32 +25,28 @@ export const errorHandler = (
     });
   }
 
-  // PostgreSQL unique constraint violation
-  if ((err as any).code === '23505') {
-    return res.status(400).json({
-      message: 'A record with this value already exists',
-    });
-  }
+  // Handle PostgreSQL errors
+  if ('code' in err) {
+    const code = (err as { code: string }).code;
 
-  // PostgreSQL foreign key constraint violation
-  if ((err as any).code === '23503') {
-    return res.status(400).json({
-      message: 'Referenced record does not exist',
-    });
-  }
-
-  // PostgreSQL check constraint violation
-  if ((err as any).code === '23514') {
-    return res.status(400).json({
-      message: 'Invalid data provided',
-    });
-  }
-
-  // PostgreSQL invalid data type
-  if ((err as any).code === '22P02') {
-    return res.status(400).json({
-      message: 'Invalid data format',
-    });
+    switch (code) {
+      case '23505': // Unique constraint violation
+        return res.status(409).json({
+          message: 'A record with this value already exists',
+        });
+      case '23503': // Foreign key constraint violation
+        return res.status(400).json({
+          message: 'Referenced record does not exist',
+        });
+      case '23514': // Check constraint violation
+        return res.status(400).json({
+          message: 'Invalid data provided',
+        });
+      case '22P02': // Invalid data type
+        return res.status(400).json({
+          message: 'Invalid data format',
+        });
+    }
   }
 
   if (process.env.NODE_ENV !== 'test') {

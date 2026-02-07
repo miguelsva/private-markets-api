@@ -75,7 +75,7 @@ describe('Investor Endpoints', () => {
       expect(response.body).toHaveProperty('message');
     });
 
-    it('should return 400 if email already exists', async () => {
+    it('should return 409 if email already exists', async () => {
       const response = await request(app)
         .post('/investors')
         .send({
@@ -83,7 +83,7 @@ describe('Investor Endpoints', () => {
           investor_type: 'Individual',
           email: 'test@investmentfund.com' // Same email as first test
         })
-        .expect(400);
+        .expect(409);
 
       expect(response.body).toHaveProperty('message');
     });
