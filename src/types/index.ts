@@ -52,8 +52,3 @@ export interface CreateInvestmentInput {
   amount_usd: number;
   investment_date: string;
 }
-
-export interface ApiError {
-  message: string;
-  errors?: any[];
-}

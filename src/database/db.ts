@@ -45,12 +45,14 @@ const config: PoolConfig = {
 export const pool = new Pool(config);
 
 // Log database connection info (non-sensitive)
-console.log(`Database connection initialized:`);
-console.log(`  Environment: ${env}`);
-console.log(`  Database: ${config.database}`);
-console.log(`  Host: ${config.host}:${config.port}`);
-if (isProduction) {
-  console.log(`  ⚠️  Connected to PRODUCTION database`);
+if (process.env.NODE_ENV !== 'test') {
+  console.log(`Database connection initialized:`);
+  console.log(`  Environment: ${env}`);
+  console.log(`  Database: ${config.database}`);
+  console.log(`  Host: ${config.host}:${config.port}`);
+  if (isProduction) {
+    console.log(`  ⚠️  Connected to PRODUCTION database`);
+  }
 }
 
 // Test database connection
@@ -69,7 +71,9 @@ export const query = async (text: string, params?: any[]) => {
     }
     return result;
   } catch (error) {
-    console.error('Database query error:', error);
+    if (process.env.NODE_ENV !== 'test') {
+      console.error('Database query error:', error);
+    }
     throw error;
   }
 };

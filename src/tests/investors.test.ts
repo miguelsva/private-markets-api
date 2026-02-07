@@ -87,6 +87,27 @@ describe('Investor Endpoints', () => {
 
       expect(response.body).toHaveProperty('message');
     });
+
+    it('should return 500 if database error occurs', async () => {
+      // Mock query to throw an error
+      jest.spyOn(require('../database/db'), 'query').mockRejectedValueOnce(
+        new Error('Database connection failed')
+      );
+
+      const response = await request(app)
+        .post('/investors')
+        .send({
+          name: 'Test Investor',
+          investor_type: 'Institution',
+          email: 'newemail@test.com'
+        })
+        .expect(500);
+
+      expect(response.body).toHaveProperty('message', 'Internal server error');
+
+      // Restore original
+      jest.restoreAllMocks();
+    });
   });
 
   describe('GET /investors', () => {

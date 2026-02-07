@@ -14,7 +14,7 @@ async function runMigrations() {
   const isTestEnv = env === 'test';
   const isProduction = env === 'production';
 
-  const pool = new Pool({
+  const poolConfig = {
     host: process.env.DB_HOST || 'localhost',
     port: parseInt(process.env.DB_PORT || '5432'),
     database: isTestEnv
@@ -22,13 +22,15 @@ async function runMigrations() {
       : (process.env.DB_NAME || 'private_markets'),
     user: process.env.DB_USER || 'postgres',
     password: process.env.DB_PASSWORD || 'postgres',
-  });
+  };
+
+  const pool = new Pool(poolConfig);
 
   try {
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     console.log(`Environment: ${env}`);
-    console.log(`Database: ${pool.options.database}`);
-    console.log(`Host: ${pool.options.host}:${pool.options.port}`);
+    console.log(`Database: ${poolConfig.database}`);
+    console.log(`Host: ${poolConfig.host}:${poolConfig.port}`);
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
 
     // Production safety check with delay
@@ -54,7 +56,11 @@ async function runMigrations() {
 
     console.log('✓ Migrations completed successfully');
   } catch (error) {
-    console.error('✗ Migration failed:', error.message);
+    if (error instanceof Error) {
+      console.error('✗ Migration failed:', error.message);
+    } else {
+      console.error('✗ Migration failed:', error);
+    }
     process.exit(1);
   } finally {
     await pool.end();

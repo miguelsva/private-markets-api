@@ -85,6 +85,7 @@ CREATE DATABASE private_markets_test;
 
 ```bash
 npm run migrate
+npm run migrate:test
 ```
 
 ### 6. Seed the database (optional)
@@ -115,7 +116,7 @@ The API will be available at `http://localhost:3000`
 Run the test suite:
 
 ```bash
-npm test
+npm run test
 ```
 
 Run tests in watch mode:

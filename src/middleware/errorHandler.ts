@@ -17,6 +17,7 @@ export const errorHandler = (
   err: Error | AppError,
   _req: Request,
   res: Response,
+  _next: NextFunction
 ) => {
   if (err instanceof AppError) {
     return res.status(err.statusCode).json({
@@ -52,7 +53,9 @@ export const errorHandler = (
     });
   }
 
-  console.error('Unhandled error:', err);
+  if (process.env.NODE_ENV !== 'test') {
+    console.error('Unhandled error:', err);
+  }
 
   return res.status(500).json({
     message: 'Internal server error',

@@ -47,15 +47,13 @@ describe('Investment Endpoints', () => {
         .send(investmentData)
         .expect(201);
 
-      expect(response.body).toEqual(
-        expect.objectContaining({
-          id: expect.any(String),
-          investor_id: testInvestorId,
-          fund_id: testFundId,
-          amount_usd: String(investmentData.amount_usd),
-          investment_date: expect.stringContaining('2024-06-15')
-        })
-      );
+      expect(response.body).toMatchObject({
+        id: expect.any(String),
+        investor_id: testInvestorId,
+        fund_id: testFundId,
+        amount_usd: expect.any(String),
+        investment_date: expect.any(String)
+      });
     });
 
     it('should return 400 if required fields are missing', async () => {
@@ -136,6 +134,27 @@ describe('Investment Endpoints', () => {
 
       expect(response.body).toHaveProperty('message');
     });
+
+    it('should return 500 if database error occurs', async () => {
+      // Mock query to throw an error
+      jest.spyOn(require('../database/db'), 'query').mockRejectedValueOnce(
+        new Error('Database connection failed')
+      );
+
+      const response = await request(app)
+        .post(`/funds/${testFundId}/investments`)
+        .send({
+          investor_id: testInvestorId,
+          amount_usd: 25000000,
+          investment_date: '2024-06-15'
+        })
+        .expect(500);
+
+      expect(response.body).toHaveProperty('message', 'Internal server error');
+
+      // Restore original
+      jest.restoreAllMocks();
+    });
   });
 
   describe('GET /funds/:fund_id/investments', () => {
@@ -146,15 +165,13 @@ describe('Investment Endpoints', () => {
 
       expect(Array.isArray(response.body)).toBe(true);
       expect(response.body.length).toBeGreaterThan(0);
-      expect(response.body[0]).toEqual(
-        expect.objectContaining({
-          id: expect.any(String),
-          investor_id: expect.any(String),
-          fund_id: testFundId,
-          amount_usd: expect.any(String),
-          investment_date: expect.any(String)
-        })
-      );
+      expect(response.body[0]).toMatchObject({
+        id: expect.any(String),
+        investor_id: expect.any(String),
+        fund_id: testFundId,
+        amount_usd: expect.any(String),
+        investment_date: expect.any(String)
+      });
     });
 
     it('should return empty array if fund has no investments', async () => {

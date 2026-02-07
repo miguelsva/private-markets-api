@@ -3,7 +3,7 @@ const { Pool } = require('pg');
 async function seedData() {
   const isTestEnv = process.env.NODE_ENV === 'test';
 
-  const pool = new Pool({
+  const poolConfig = {
     host: process.env.DB_HOST || 'localhost',
     port: parseInt(process.env.DB_PORT || '5432'),
     database: isTestEnv
@@ -11,10 +11,11 @@ async function seedData() {
       : (process.env.DB_NAME || 'private_markets'),
     user: process.env.DB_USER || 'postgres',
     password: process.env.DB_PASSWORD || 'postgres',
-  });
+  };
+  const pool = new Pool(poolConfig);
 
   try {
-    console.log(`Seeding data to database: ${pool.options.database}`);
+    console.log(`Seeding data to database: ${poolConfig.database}`);
 
     // Insert sample funds
     const fund1Result = await pool.query(`
@@ -84,7 +85,11 @@ async function seedData() {
     console.log('✓ Inserted 3 investments');
     console.log('\n✓ Seed data inserted successfully');
   } catch (error) {
-    console.error('✗ Seed failed:', error.message);
+    if (error instanceof Error) {
+      console.error('✗ Seed failed:', error.message);
+    } else {
+      console.error('✗ Seed failed:', error);
+    }
     process.exit(1);
   } finally {
     await pool.end();

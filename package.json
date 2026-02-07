@@ -8,6 +8,7 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "migrate": "node -r dotenv/config scripts/migrate.js",
+    "migrate:test": "NODE_ENV=test npm run migrate",
     "seed": "node -r dotenv/config scripts/seed.js",
     "test": "NODE_ENV=test jest --runInBand --detectOpenHandles",
     "test:watch": "NODE_ENV=test jest --watch --runInBand"
