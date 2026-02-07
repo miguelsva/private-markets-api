@@ -65,8 +65,6 @@ DB_PASSWORD=your_password
 TEST_DB_NAME=private_markets_test
 ```
 
-**Note**: The project includes production safety features that prevent destructive operations in production environments.
-
 ### 4. Create databases
 
 Create the development and test databases in PostgreSQL:
@@ -150,10 +148,6 @@ npm run test:watch
 - `GET /funds/:fund_id/investments` - List all investments for a specific fund
 - `POST /funds/:fund_id/investments` - Create a new investment to a fund
 
-## API Documentation
-
-For detailed API documentation including request/response formats, see the [API specification](https://storage.googleapis.com/interview-api-doc-funds.wearebusy.engineering/index.html).
-
 ### Example Request - Create a Fund
 
 ```bash
@@ -180,72 +174,21 @@ curl -X POST http://localhost:3000/funds \
 }
 ```
 
-## Project Structure
+## Assumptions
 
-```
-.
-├── migrations/          # SQL migration files
-├── scripts/             # Utility scripts (migrate, seed)
-├── src/
-│   ├── controllers/     # Request handlers (fund, investor, investment)
-│   ├── database/        # Database connection and safe query utilities
-│   ├── middleware/      # Express middleware (validation, error handling)
-│   ├── routes/          # API route definitions
-│   ├── services/        # Business logic (fund, investor, investment)
-│   ├── tests/           # Integration tests for all endpoints
-│   ├── types/           # TypeScript type definitions
-│   ├── utils/           # Utility functions (environment safety)
-│   ├── app.ts           # Express app configuration
-│   └── index.ts         # Application entry point
-├── .env                 # Environment variables (not in version control)
-├── .gitignore
-├── jest.config.js
-├── package.json
-└── tsconfig.json
-```
-
-## NPM Scripts
-
-- `npm run dev` - Start development server with hot reload
-- `npm run build` - Build TypeScript to JavaScript
-- `npm start` - Start production server
-- `npm run migrate` - Run database migrations
-- `npm run seed` - Seed database with sample data
-- `npm test` - Run tests
-- `npm run test:watch` - Run tests in watch mode
-
-## Error Handling
-
-The API returns appropriate HTTP status codes:
-
-- `200 OK` - Successful GET/PUT requests
-- `201 Created` - Successful POST requests
-- `400 Bad Request` - Validation errors or invalid data
-- `404 Not Found` - Resource not found
-- `500 Internal Server Error` - Unexpected server errors
-
-Error responses include descriptive messages:
-
-```json
-{
-  "message": "Validation failed",
-  "errors": [
-    "name is required",
-    "vintage_year must be at least 1900"
-  ]
-}
-```
+- **Authentication**: Not required by specifications
+- **Authorization**: Not required by specifications
+- **Currency**: All monetary amounts are in USD
+- **Decimal Precision**: Monetary values stored with 2 decimal places
+- **Pagination**: Not required by specifications
+- **Rate Limiting**: Not required by specifications
+- **Duplicate Investments**: Allowed - same investor can make multiple investments in the same fund
+- **Investment Validation**: No checks for fund capacity or maximum investment amounts
+- **Audit Trail**: No change history tracking - only creation timestamps are recorded
+- **Time Zones**: All timestamps stored as TIMESTAMP WITH TIME ZONE (UTC)
+- **Email Uniqueness**: Each investor must have a unique email address
 
 ## Design Decisions
 
 For information about architectural choices and design decisions, see [ARCHITECTURE.md](./ARCHITECTURE.md).
 
-## Production Safety Features
-
-The API includes several production-ready safety mechanisms:
-
-- **Environment Protection**: Destructive database operations (truncate, drop) are protected in production
-- **Migration Safety**: 5-second delay warning before running migrations in production
-- **Connection Management**: Graceful shutdown with proper cleanup of database connections
-- **Query Logging**: Development-mode query logging for debugging (disabled in production/test)
-- **Client Timeout Monitoring**: Automatic detection and cleanup of idle database connections
