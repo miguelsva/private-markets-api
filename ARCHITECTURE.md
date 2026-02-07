@@ -2,19 +2,19 @@
 
 ## Overview
 
-Clean, layered architecture with separation of concerns. Designed for simplicity, maintainability, and production-ready quality.
+This API uses a clean, layered architecture with clear separation of concerns, designed for simplicity, maintainability, and production readiness.
 
 ## Technology Choices
 
-**TypeScript (strict mode)**: Type safety, better IDE support, self-documenting code
+- **TypeScript (strict mode)** - Type safety, better IDE support, self-documenting code
 
-**Express.js**: Industry standard, lightweight, quick to implement
+- **Express.js** - Industry standard, lightweight, quick to implement
 
-**Raw SQL with `pg`**: Direct control, no ORM overhead, transparent queries
+- **Raw SQL with `pg`** - Direct control, no ORM overhead, transparent queries
 
-**Custom Validation**: Lightweight, sufficient for requirements, no additional dependencies
+- **Custom Validation** - Lightweight, sufficient for requirements, no additional dependencies
 
-**PostgreSQL**: Required by spec, constraint support, UUID and ENUM types
+- **PostgreSQL** - Required by spec, supports constraints, UUIDs, and ENUM types
 
 ## Architecture Layers
 
@@ -28,12 +28,12 @@ Clean, layered architecture with separation of concerns. Designed for simplicity
 
 ## Database Design
 
-- UUID primary keys for distributed system compatibility
-- Foreign key constraints
-- Check constraints for data validation
-- ENUM types for fund status and investor type
-- Unique constraint on investor email
-- Indexes on foreign keys for query performance
+- **UUID primary keys** - For distributed system compatibility and security
+- **Foreign key constraints** - Ensures referential integrity
+- **Check constraints** - Database-level data validation
+- **ENUM types** - For fund status and investor type
+- **Unique constraints** - On investor email addresses
+- **Indexes** - On foreign keys for optimal query performance
 
 ## Error Handling
 
@@ -88,26 +88,4 @@ Separate test database (`private_markets_test`).
 ├── jest.config.js
 ├── package.json
 └── tsconfig.json
-```
-
-## Error Handling
-
-The API returns appropriate HTTP status codes:
-
-- `200 OK` - Successful GET/PUT requests
-- `201 Created` - Successful POST requests
-- `400 Bad Request` - Validation errors or invalid data
-- `404 Not Found` - Resource not found
-- `500 Internal Server Error` - Unexpected server errors
-
-Error responses include descriptive messages:
-
-```json
-{
-  "message": "Validation failed",
-  "errors": [
-    "name is required",
-    "vintage_year must be at least 1900"
-  ]
-}
 ```

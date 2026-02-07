@@ -36,7 +36,7 @@ A RESTful API for managing private market funds, investors, and their investment
 ### 1. Clone the repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/miguelsva/private-markets-api.git
 cd private-markets-api
 ```
 
@@ -176,17 +176,18 @@ curl -X POST http://localhost:3000/funds \
 
 ## Assumptions
 
-- **Authentication**: Not required by specifications
-- **Authorization**: Not required by specifications
+- **Authentication**: Not implemented (not required by specifications)
+- **Authorization**: Not implemented (not required by specifications)
 - **Currency**: All monetary amounts are in USD
-- **Decimal Precision**: Monetary values stored with 2 decimal places
-- **Pagination**: Not required by specifications
-- **Rate Limiting**: Not required by specifications
-- **Caching**: Not required by specifications
-- **Linting and formatting**: Future enhancement
-- **Duplicate Investments**: Allowed - same investor can make multiple investments in the same fund
+- **Decimal Precision**: Monetary values stored with 2 decimal places (DECIMAL(15,2))
+- **Pagination**: Not implemented (not required by specifications)
+- **Rate Limiting**: Not implemented (not required by specifications)
+- **Caching**: Not implemented (not required by specifications)
+- **Default Ordering**: Results ordered by creation timestamp (newest first)
+- **Linting and Formatting**: Future enhancement
+- **Duplicate Investments**: Same investor can make multiple investments in the same fund
 - **Investment Validation**: No checks for fund capacity or maximum investment amounts
-- **Audit Trail**: No change history tracking - only creation timestamps are recorded
+- **Audit Trail**: No change history tracking - only creation timestamps recorded
 - **Time Zones**: All timestamps stored as TIMESTAMP WITH TIME ZONE (UTC)
 - **Email Uniqueness**: Each investor must have a unique email address
 
