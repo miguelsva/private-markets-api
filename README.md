@@ -182,6 +182,7 @@ curl -X POST http://localhost:3000/funds \
 - **Decimal Precision**: Monetary values stored with 2 decimal places
 - **Pagination**: Not required by specifications
 - **Rate Limiting**: Not required by specifications
+- **Linting and formatting**: Future enhancement
 - **Duplicate Investments**: Allowed - same investor can make multiple investments in the same fund
 - **Investment Validation**: No checks for fund capacity or maximum investment amounts
 - **Audit Trail**: No change history tracking - only creation timestamps are recorded

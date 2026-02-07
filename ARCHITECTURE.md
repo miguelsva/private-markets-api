@@ -18,10 +18,13 @@ Clean, layered architecture with separation of concerns. Designed for simplicity
 
 ## Architecture Layers
 
-**Routes** → Define endpoints and validation rules
-**Controllers** → Handle HTTP requests/responses
-**Services** → Business logic and database operations
-**Middleware** → Validation and error handling
+**Routes**: Define endpoints and validation rules
+
+**Controllers**: Handle HTTP requests/responses
+
+**Services**: Business logic and database operations
+
+**Middleware**: Validation and error handling
 
 ## Database Design
 
