@@ -2,6 +2,7 @@ import express, { Application } from 'express';
 import fundRoutes from './routes/fundRoutes';
 import investorRoutes from './routes/investorRoutes';
 import investmentRoutes from './routes/investmentRoutes';
+import analyticsRoutes from './routes/analyticsRoutes';
 import { errorHandler, notFoundHandler } from './middleware/errorHandler';
 
 const app: Application = express();
@@ -26,6 +27,7 @@ app.get('/health', (_req, res) => {
 // API Routes
 app.use('/funds', fundRoutes);
 app.use('/funds', investmentRoutes); // Investment routes are nested under /funds/:fund_id/investments
+app.use('/funds', analyticsRoutes); // Analytics routes are nested under /funds/:fund_id/analytics
 app.use('/investors', investorRoutes);
 
 // Error handling
